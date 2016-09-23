@@ -1,0 +1,24 @@
+---
+driver:
+  name: vagrant
+  customize:
+          memory: 2048
+          cpus: 2
+  log_level: info
+
+provisioner:
+  name: chef_zero
+platforms:
+  # - name: ubuntu-14.04
+  - name: centos-7.2
+    driver_plugin: vagrant
+    driver_config:
+      box: "bento/centos-7.2"
+      box_url: "bento/centos-7.2"
+      network:
+        - ["private_network", {ip: "192.168.237.15"}]
+suites:
+  - name: default
+    run_list:
+      - recipe[mycookbook::default]
+    attributes:
